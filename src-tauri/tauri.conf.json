@@ -29,6 +29,15 @@
         "visible": false,
         "acceptFirstMouse": true,
         "focus": false
+      },
+      {
+        "label": "settings",
+        "title": "Lovnotifier Settings",
+        "url": "/",
+        "width": 400,
+        "height": 300,
+        "resizable": false,
+        "visible": false
       }
     ],
     "security": {

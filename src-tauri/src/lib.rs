@@ -822,24 +822,10 @@ pub fn run() {
                             }
                         }
                     } else if id == "tray_settings" {
-                        // Open settings window
+                        // Open settings window (pre-configured in tauri.conf.json)
                         if let Some(window) = app.get_webview_window("settings") {
                             let _ = window.show();
                             let _ = window.set_focus();
-                        } else {
-                            if let Ok(window) = WebviewWindowBuilder::new(
-                                app,
-                                "settings",
-                                WebviewUrl::App("/index.html".into()),
-                            )
-                            .title("Lovnotifier Settings")
-                            .inner_size(400.0, 300.0)
-                            .resizable(false)
-                            .build()
-                            {
-                                let _ = window.show();
-                                let _ = window.set_focus();
-                            }
                         }
                     } else if id == "tray_quit" {
                         std::process::exit(0);
