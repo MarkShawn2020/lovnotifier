@@ -13,7 +13,12 @@ import { useVirtualizer } from "@tanstack/react-virtual";
 
 function NotifierLogo({ className = "" }: { className?: string }) {
   return (
-    <img src="/assets/logo.svg" alt="Lovnotifier" className={className} />
+    <img
+      src="/assets/logo.svg"
+      alt="Lovnotifier"
+      className={className}
+      style={{ filter: "brightness(0) invert(1)" }}
+    />
   );
 }
 
