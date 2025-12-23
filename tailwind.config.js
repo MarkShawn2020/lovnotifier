@@ -4,6 +4,10 @@ export default {
     content: ["./index.html", "./float.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
   	extend: {
+  		fontFamily: {
+  			serif: ["Georgia", "Times New Roman", "serif"],
+  			sans: ["Inter", "Arial", "sans-serif"],
+  		},
   		borderRadius: {
   			lg: 'var(--radius)',
   			md: 'calc(var(--radius) - 2px)',
