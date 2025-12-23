@@ -42,11 +42,11 @@ function MiniSwitch({ checked, onChange, label }: {
     >
       <div
         className={`relative w-7 h-4 rounded-full transition-colors ${
-          checked ? "bg-white/40" : "bg-white/15"
+          checked ? "bg-primary-foreground/40" : "bg-primary-foreground/15"
         }`}
       >
         <div
-          className={`absolute top-0.5 w-3 h-3 rounded-full bg-white transition-transform ${
+          className={`absolute top-0.5 w-3 h-3 rounded-full bg-primary-foreground transition-transform ${
             checked ? "translate-x-3.5" : "translate-x-0.5"
           }`}
         />
@@ -615,7 +615,7 @@ export function FloatWindow() {
 
   return (
     <div
-      className={`w-screen h-screen bg-amber-700 text-white overflow-hidden flex flex-col ${isExpanded ? "rounded-xl" : collapsedRounding}`}
+      className={`w-screen h-screen bg-primary text-primary-foreground overflow-hidden flex flex-col ${isExpanded ? "rounded-xl" : collapsedRounding}`}
     >
       {/* Header */}
       <div
@@ -641,14 +641,14 @@ export function FloatWindow() {
                 e.stopPropagation();
                 getCurrentWindow().hide();
               }}
-              className="p-1 hover:bg-white/20 rounded transition-colors"
+              className="p-1 hover:bg-primary-foreground/20 rounded transition-colors"
             >
               <Cross2Icon className="w-4 h-4" />
             </button>
           </motion.div>
         ) : (
           <motion.span
-            className="w-6 h-6 flex items-center justify-center text-xs font-bold bg-white/20 rounded-full"
+            className="w-6 h-6 flex items-center justify-center text-xs font-bold bg-primary-foreground/20 rounded-full"
             animate={shake ? { x: [-2, 2, -2, 2, 0] } : {}}
             transition={{ duration: 0.3 }}
           >
@@ -677,7 +677,7 @@ export function FloatWindow() {
               {!showOnlyPending && completedItems.length > 0 && (
                 <button
                   onClick={handleClearCompleted}
-                  className="ml-auto p-1 text-white/40 hover:text-white/80 transition-colors"
+                  className="ml-auto p-1 text-primary-foreground/40 hover:text-primary-foreground/80 transition-colors"
                   title="Clear completed"
                 >
                   <Trash2 className="w-3.5 h-3.5" />
@@ -722,7 +722,7 @@ export function FloatWindow() {
                           onClick={() => !isCompleted && handleItemClick(item)}
                           className={`flex items-center gap-2 p-2 rounded-lg transition-colors ${
                             isCompleted ? "cursor-default" : "cursor-pointer"
-                          } ${isHovered ? "bg-white/20" : "bg-white/10"} ${
+                          } ${isHovered ? "bg-primary-foreground/20" : "bg-primary-foreground/10"} ${
                             isCompleted ? "opacity-70" : ""
                           }`}
                         >
@@ -747,14 +747,14 @@ export function FloatWindow() {
                                 handleDismiss(item.id);
                               }}
                               className={`p-1 rounded transition-opacity ${
-                                isHovered ? "opacity-100 bg-white/10" : "opacity-0"
+                                isHovered ? "opacity-100 bg-primary-foreground/10" : "opacity-0"
                               }`}
                             >
                               <Cross2Icon className="w-3.5 h-3.5" />
                             </motion.button>
                           )}
                           {isCompleted && (
-                            <CheckIcon className="w-4 h-4 text-white/70" />
+                            <CheckIcon className="w-4 h-4 text-primary-foreground/70" />
                           )}
                         </div>
                       </div>
