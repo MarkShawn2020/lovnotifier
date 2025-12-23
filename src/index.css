@@ -96,4 +96,9 @@
   body {
     @apply bg-background text-foreground;
   }
+  /* Float window needs transparent background for rounded corners */
+  html:has(body.transparent),
+  body.transparent {
+    background: transparent !important;
+  }
 }
