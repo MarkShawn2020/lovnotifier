@@ -324,7 +324,6 @@ export function FloatWindow() {
     if (!monitor) return;
 
     const pos = await win.outerPosition();
-    const outerSize = await win.outerSize();
     const innerSize = await win.innerSize();
     const scale = monitor.scaleFactor;
 
@@ -617,9 +616,10 @@ export function FloatWindow() {
     <div
       className={`w-screen h-screen bg-primary text-primary-foreground overflow-hidden flex flex-col ${isExpanded ? "rounded-xl" : collapsedRounding}`}
     >
-      {/* Header */}
+      {/* Header - drag region */}
       <div
-        className={`flex items-center gap-2 cursor-pointer select-none shrink-0 ${isExpanded ? "justify-center p-3" : "px-3 py-2 h-full"}`}
+        data-tauri-drag-region
+        className={`flex items-center gap-2 cursor-move select-none shrink-0 ${isExpanded ? "justify-center p-3" : "px-3 py-2 h-full"}`}
         onMouseDown={handleMouseDown}
         onContextMenu={(e) => e.preventDefault()}
       >
