@@ -2,10 +2,13 @@
   <img src="docs/images/cover.png" alt="Lovnotifier Cover" width="100%">
 </p>
 
-<h1 align="center">Lovnotifier</h1>
+<h1 align="center">
+  <img src="assets/logo.svg" width="32" height="32" alt="Logo" align="top">
+  Lovnotifier
+</h1>
 
 <p align="center">
-  <strong>macOS notifications for tmux sessions with click-to-activate</strong><br>
+  <strong>Desktop notification hub for developers</strong><br>
   <sub>macOS</sub>
 </p>
 
@@ -13,59 +16,70 @@
 
 ## Features
 
-- **Native macOS Notifications** - Uses `terminal-notifier` for system-native alerts
-- **Click-to-Activate** - Click notification to jump directly to the tmux session/window/pane
-- **iTerm2 Integration** - Automatically focuses the correct iTerm2 tab
-- **Lightweight** - Simple shell scripts, no dependencies beyond tmux
+- **Float Window** - Always-on-top draggable widget showing pending notifications
+- **System Tray** - Quick access to message queue from menu bar
+- **tmux Integration** - Click to navigate directly to tmux session/window/pane
+- **Global Shortcut** - Press `F4` to consume the oldest notification
+- **HTTP API** - Receive notifications from CLI tools, scripts, or CI/CD
+- **Persistent Queue** - Messages survive app restarts
+- **History** - Track completed notifications
 
 ## Installation
 
+### From Source
+
 ```bash
-# Clone the repository
-git clone https://github.com/user/lovnotifier.git
+# Clone repository
+git clone https://github.com/nicepkg/lovnotifier.git
 cd lovnotifier
 
-# Build the app
-./build.sh
+# Install dependencies
+pnpm install
+
+# Build for production
+pnpm tauri:build
 ```
 
-The app will be installed to `~/Applications/Lovnotifier.app`.
+The built app will be in `src-tauri/target/release/bundle/`.
 
 ## Usage
 
-```bash
-# Basic notification
-lovnotifier-send -title "Build Complete" -message "Your project compiled successfully"
+### Sending Notifications
 
-# With tmux session context (enables click-to-activate)
-lovnotifier-send -title "Task Done" -message "Check results" \
-  -session "dev" -window "1" -pane "0"
+Send a POST request to `http://localhost:23567/notify`:
+
+```bash
+curl -X POST http://localhost:23567/notify \
+  -H "Content-Type: application/json" \
+  -d '{
+    "title": "Build Complete",
+    "project": "my-app",
+    "tmux_session": "dev",
+    "tmux_window": "1",
+    "tmux_pane": "0"
+  }'
 ```
 
-### Parameters
+### API Endpoints
 
-| Parameter | Description |
-|-----------|-------------|
-| `-title` | Notification title |
-| `-message` | Notification body |
-| `-session` | tmux session name (enables click-to-activate) |
-| `-window` | tmux window index |
-| `-pane` | tmux pane index |
-| `-group` | Notification group ID |
-| `-sound` | Notification sound |
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| POST | `/notify` | Add notification to queue |
+| GET | `/queue` | List pending notifications |
+| DELETE | `/queue/:id` | Remove notification by ID |
 
-## How It Works
+### Keyboard Shortcuts
 
-1. `lovnotifier-send` dispatches notifications via `terminal-notifier`
-2. When clicked, the `-execute` callback triggers `activate.sh`
-3. `activate.sh` uses AppleScript to focus iTerm2 and switch to the correct tmux session/window/pane
+| Shortcut | Action |
+|----------|--------|
+| `F4` | Consume oldest notification and navigate to tmux |
 
-## Requirements
+## Tech Stack
 
-- macOS
-- tmux
-- iTerm2 (for click-to-activate)
+- **Frontend**: React 19, TailwindCSS, Framer Motion, Radix UI
+- **Backend**: Rust, Tauri 2.0, Warp
+- **Build**: Vite, TypeScript
 
 ## License
 
-MIT
+[Apache-2.0](LICENSE)
