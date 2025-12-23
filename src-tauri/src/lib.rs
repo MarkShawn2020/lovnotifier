@@ -779,8 +779,19 @@ pub fn run() {
             let tray_menu = build_tray_menu(app_handle)?;
             println!("[Lovnotifier] Tray init: queue has {} messages", initial_count);
 
+            // Load tray icon (template image for macOS)
+            let tray_icon_bytes = include_bytes!("../icons/tray-icon.png");
+            let tray_icon = image::load_from_memory(tray_icon_bytes)
+                .map(|img| {
+                    let rgba = img.to_rgba8();
+                    let (width, height) = rgba.dimensions();
+                    tauri::image::Image::new_owned(rgba.into_raw(), width, height)
+                })
+                .unwrap_or_else(|_| app.default_window_icon().unwrap().clone());
+
             let _tray = TrayIconBuilder::with_id("main-tray")
-                .icon(app.default_window_icon().unwrap().clone())
+                .icon(tray_icon)
+                .icon_as_template(true)
                 .menu(&tray_menu)
                 .show_menu_on_left_click(true)
                 .tooltip("Lovnotifier")
